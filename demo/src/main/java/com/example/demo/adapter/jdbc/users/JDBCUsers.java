@@ -34,7 +34,7 @@ public class JDBCUsers implements UsersRepository {
     }
 
     // O meu ParameterSource mapeia os parâmetros do objeto para uma consulta sql, insert por exemplo
-    private MapSqlParameterSource mapSqlParameterSource(Users users) {
+    private MapSqlParameterSource usersParameters(Users users) {
         return new MapSqlParameterSource()
                 .addValue("id_user", users.getId_user())
                 .addValue("username", users.getUsername())
@@ -45,7 +45,6 @@ public class JDBCUsers implements UsersRepository {
     // Implementação da consulta de todos os usuários, retornando em uma lista
     @Override
     public List<Users> findAllUsers() {
-        List<Users> usuarios;
         try {
             return jdbcTemplate.query(sqlSelectAllUsers, usersRowMapper());
         } catch (Exception e) {
@@ -84,7 +83,7 @@ public class JDBCUsers implements UsersRepository {
     @Override
     public Boolean saveUser(Users users) {
         try {
-            MapSqlParameterSource params = mapSqlParameterSource(users);
+            MapSqlParameterSource params = usersParameters(users);
             return jdbcTemplate.update(sqlInsertUser, params) > 0;
         } catch (Exception e) {
             throw e;
@@ -95,7 +94,7 @@ public class JDBCUsers implements UsersRepository {
     @Override
     public Boolean updateUser(Users users) {
         try {
-            MapSqlParameterSource params = mapSqlParameterSource(users);
+            MapSqlParameterSource params = usersParameters(users);
             return jdbcTemplate.update(sqlEditarUser, params) > 0;
         } catch (Exception e) {
             throw e;

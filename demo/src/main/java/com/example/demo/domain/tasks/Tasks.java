@@ -17,15 +17,16 @@ public class Tasks {
     private String title;
     private String description;
     private StatusTask status;
+    private PriorityTask priority;
     private Date createdDate;
 
     //    Construtor para a criação desse objeto com o endpoint POST, onde a id é gerada e a data é a obtida pelo sistema
-    public Tasks(String title, String description, StatusTask status) {
+    public Tasks(String title, String description, StatusTask status, PriorityTask priority) {
         this.id_task = String.valueOf(UUID.randomUUID());
         this.title = title;
         this.description = description;
         this.status = status;
-
+        this.priority = priority;
 //      Aqui é usado uma métodoo para receber a data atual e setar sempre que esse métodoo construtor for usado
         this.createdDate = java.util.Date.from(java.time.LocalDate.now()
                 .atStartOfDay(java.time.ZoneId.of("UTC"))

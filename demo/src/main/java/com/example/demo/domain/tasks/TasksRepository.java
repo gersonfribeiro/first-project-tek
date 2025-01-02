@@ -3,7 +3,6 @@ package com.example.demo.domain.tasks;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
 
 @Repository
 public interface TasksRepository {
@@ -11,8 +10,17 @@ public interface TasksRepository {
     // Listar todas as tasks
     List<Tasks> findAllTasks();
 
+    // Número total de tasks
+    int totalTasks();
+
+    // contar quantas tasks estão finalizadas
+    int countAllTasks();
+
+    // Media de prioridade das tasks pendentes
+    PriorityTask mediaPriority();
+
     // Listar task por id
-    Tasks findById(UUID id);
+    Tasks findById(String id_task);
 
     // Create task
     Boolean saveTask(Tasks task);
@@ -21,5 +29,5 @@ public interface TasksRepository {
     Boolean updateTask(Tasks task);
 
     // Delete task
-    Boolean deleteTask(Tasks task);
+    Boolean deleteTask(String id_task);
 }
