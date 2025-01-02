@@ -13,7 +13,7 @@ import java.util.UUID;
 public class Tasks {
 
     //  Atributos do objeto
-    private UUID id_task;
+    private String id_task;
     private String title;
     private String description;
     private StatusTask status;
@@ -21,7 +21,7 @@ public class Tasks {
 
     //    Construtor para a criação desse objeto com o endpoint POST, onde a id é gerada e a data é a obtida pelo sistema
     public Tasks(String title, String description, StatusTask status) {
-        this.id_task = UUID.randomUUID();
+        this.id_task = String.valueOf(UUID.randomUUID());
         this.title = title;
         this.description = description;
         this.status = status;

@@ -12,14 +12,14 @@ import java.util.UUID;
 public class Users {
 
     //  Atributos do objeto
-    private UUID id_user;
+    private String id_user;
     private String username;
     private String email;
     private String password;
 
     //    Construtor para a criação desse objeto com o endpoint POST, onde a id é gerada
     public Users(String username, String email, String password) {
-        this.id_user = UUID.randomUUID();
+        this.id_user = String.valueOf(UUID.randomUUID());
         this.username = username;
         this.email = email;
         this.password = password;
