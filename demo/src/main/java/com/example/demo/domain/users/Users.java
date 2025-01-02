@@ -15,13 +15,13 @@ public class Users {
     private String id_user;
     private String username;
     private String email;
-    private String password;
+    private String passwordUser;
 
     //    Construtor para a criação desse objeto com o endpoint POST, onde a id é gerada
     public Users(String username, String email, String password) {
         this.id_user = String.valueOf(UUID.randomUUID());
         this.username = username;
         this.email = email;
-        this.password = password;
+        this.passwordUser = password;
     }
 }

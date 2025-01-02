@@ -12,10 +12,10 @@ public class SqlExpressionsUsers {
     public static final String sqlSelectUserByUsername = "SELECT * FROM users WHERE username = ?";
 
     // Consulta sql para inserir um usuário
-    public static final String sqlInsertUser = "INSERT INTO users (id_user, username, email, password) VALUES (?, ?, ?, ?)";
+    public static final String sqlInsertUser = "INSERT INTO users (id_user, username, email, passwordUser) VALUES (?, ?, ?, ?)";
 
     // Consulta sql para editar um usuário
-    public static final String sqlEditarUser = "UPDATE users SET username = ?, email = ?, password = ? WHERE id_user = ?";
+    public static final String sqlEditarUser = "UPDATE users SET username = ?, email = ?, passwordUser = ? WHERE id_user = ?";
 
     // Consulta sql para remover um usuário
     public static final String sqlDeleteUser = "DELETE FROM users WHERE id_user = ?";
