@@ -15,10 +15,10 @@ public class SqlExpressionsTasks {
     public static final String SELECT_TASK_BY_ID = "SELECT * FROM tasks WHERE id_task = ?";
 
     // Consulta sql para inserir uma nova task
-    public static final String INSERT_TASK = "INSERT INTO tasks (id_task, title, description, status, priority, createdDate) VALUES (?, ?, ?, ?, ?, ?)";
+    public static final String INSERT_TASK = "INSERT INTO tasks (id_task, title, descriptionTask, statusTask, priority, createdDate) VALUES (?, ?, ?, ?, ?, ?)";
 
     // Consulta sql para editar uma task
-    public static final String UPDATE_TASK = "UPDATE tasks SET title = ?, description = ?, status = ?, priority = ?, createdDate = ? WHERE id_task = ?";
+    public static final String UPDATE_TASK = "UPDATE tasks SET title = ?, descriptionTask = ?, statusTask = ?, priority = ?, createdDate = ? WHERE id_task = ?";
 
     // Consulta sql para remover uma task
     public static final String DELETE_TASK = "DELETE FROM tasks WHERE id_task = ?";
