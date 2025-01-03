@@ -15,6 +15,7 @@ public class UserService {
     }
 
     public List<Users> findAllUsers(int offset) {
+        offset = (offset - 1) * 10;
         return usersRepository.findAllUsers(offset);
     }
 

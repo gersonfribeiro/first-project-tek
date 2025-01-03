@@ -1,3 +1,20 @@
 spring:
   application:
-    name=demo
+    name: demo
+  main:
+    web-application-type: servlet
+  web:
+    resources:
+      add-mappings: false
+  datasource:
+    name: tasks
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tasks
+    username: root
+    password: Gerson_Tek4282
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+server:
+  port: 8080

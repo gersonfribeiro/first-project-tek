@@ -16,6 +16,7 @@ public class TaskService {
     }
 
     public List<Tasks> findAllTasks(int offset) {
+        offset = (offset - 1) * 10;
         return tasksRepository.findAllTasks(offset);
     }
 

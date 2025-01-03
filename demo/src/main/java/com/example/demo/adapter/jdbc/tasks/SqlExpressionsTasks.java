@@ -3,7 +3,7 @@ package com.example.demo.adapter.jdbc.tasks;
 public class SqlExpressionsTasks {
 
     // Consultar todas as tasks
-    public static final String SELECT_ALL_TASKS = "SELECT * FROM tasks LIMIT 10 OFFSET (:offset - 1) * 10";
+    public static final String SELECT_ALL_TASKS = "SELECT * FROM tasks LIMIT 10 OFFSET :offset";
 
     // Consultar quantidade das tasks e retornar um valor inteiro
     public static final String SIZE_ALL_TASKS = "SELECT COUNT(*) FROM tasks";
