@@ -9,10 +9,10 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import static com.example.demo.adapter.jdbc.tasks.SqlExpressionsTasks.*;
-
 import java.util.Date;
 import java.util.List;
+
+import static com.example.demo.adapter.jdbc.tasks.SqlExpressionsTasks.*;
 
 @Repository
 public class JDBCTasks implements TasksRepository {
@@ -49,9 +49,10 @@ public class JDBCTasks implements TasksRepository {
     }
 
     @Override
-    public List<Tasks> findAllTasks() {
+    public List<Tasks> findAllTasks(int offset) {
         try {
-            return jdbcTemplate.query(SELECT_ALL_TASKS, tasksRowMapper());
+            MapSqlParameterSource params = new MapSqlParameterSource("offset", offset);
+            return jdbcTemplate.query(SELECT_ALL_TASKS, params, tasksRowMapper());
         } catch (Exception e) {
             throw e;
         }

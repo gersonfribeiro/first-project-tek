@@ -8,7 +8,7 @@ import java.util.List;
 public interface TasksRepository {
 
     // Listar todas as tasks
-    List<Tasks> findAllTasks();
+    List<Tasks> findAllTasks(int offset);
 
     // Número total de tasks
     int totalTasks();
