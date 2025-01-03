@@ -25,14 +25,14 @@ public class JDBCTasks implements TasksRepository {
     // O rowMapper é responsável por mapear a resposta que da minha consulta sql e converter em um objeto
     private RowMapper<Tasks> tasksRowMapper() {
         return (rs, rowNum) -> {
-            String id_task = rs.getString("id_task");
+            int id_task = Integer.parseInt(rs.getString("id_task"));
             String title = rs.getString("title");
-            String description = rs.getString("description");
-            StatusTask status = StatusTask.valueOf(rs.getString("status"));
+            String descriptionTask = rs.getString("descriptionTask");
+            StatusTask statusTask = StatusTask.valueOf(rs.getString("statusTask"));
             PriorityTask priority = PriorityTask.valueOf(rs.getString("priority"));
             Date createdDate = rs.getDate("created_date");
 
-            return new Tasks(id_task, title, description, status, priority, createdDate);
+            return new Tasks(id_task, title, descriptionTask, statusTask, priority, createdDate);
 
         };
     }
@@ -42,8 +42,8 @@ public class JDBCTasks implements TasksRepository {
         return new MapSqlParameterSource()
                 .addValue("id_task", tasks.getId_task())
                 .addValue("title", tasks.getTitle())
-                .addValue("description", tasks.getDescription())
-                .addValue("status", tasks.getStatus().name())
+                .addValue("descriptionTask", tasks.getDescriptionTask())
+                .addValue("statusTask", tasks.getStatusTask().name())
                 .addValue("priority", tasks.getPriority().name())
                 .addValue("created_date", tasks.getCreatedDate());
     }
@@ -69,7 +69,11 @@ public class JDBCTasks implements TasksRepository {
 
     @Override
     public int countAllTasks() {
-        return 0;
+        try {
+            jdbcTemplate.queryForObject(SELEC)
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     @Override
@@ -78,7 +82,7 @@ public class JDBCTasks implements TasksRepository {
     }
 
     @Override
-    public Tasks findById(String id_task) {
+    public Tasks findById(int id_task) {
         return null;
     }
 
@@ -93,7 +97,7 @@ public class JDBCTasks implements TasksRepository {
     }
 
     @Override
-    public Boolean deleteTask(String id_task) {
+    public Boolean deleteTask(int id_task) {
         return null;
     }
 }

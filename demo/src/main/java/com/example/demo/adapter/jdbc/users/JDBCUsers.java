@@ -24,12 +24,12 @@ public class JDBCUsers implements UsersRepository {
     // O rowMapper é responsável por mapear a resposta que da minha consulta sql e converter em um objeto
     private RowMapper<Users> usersRowMapper() {
         return (rs, rowNum) -> {
-            String id_user = rs.getString("id_user");
+            int id_user = Integer.parseInt(rs.getString("id_user"));
             String username = rs.getString("username");
             String email = rs.getString("email");
-            String password = rs.getString("password");
+            String passwordUser = rs.getString("passwordUser");
 
-            return new Users(id_user, username, email, password);
+            return new Users(id_user, username, email, passwordUser);
         };
     }
 
@@ -39,7 +39,7 @@ public class JDBCUsers implements UsersRepository {
                 .addValue("id_user", users.getId_user())
                 .addValue("username", users.getUsername())
                 .addValue("email", users.getEmail())
-                .addValue("password", users.getPassword());
+                .addValue("passwordUser", users.getPasswordUser());
     }
 
     // Implementação da consulta de todos os usuários, retornando em uma lista
@@ -55,7 +55,7 @@ public class JDBCUsers implements UsersRepository {
 
     // Implementação da consulta de usuario por id, armazenado em uma lista mas exibindo apenas o primeiro
     @Override
-    public Users findById(String id_user) {
+    public Users findById(int id_user) {
         List<Users> usuarios;
         try {
             MapSqlParameterSource parameters = new MapSqlParameterSource("id_user", id_user);
@@ -103,7 +103,7 @@ public class JDBCUsers implements UsersRepository {
 
     // Implementação da remoção de usuario
     @Override
-    public Boolean deleteUser(String id_user) {
+    public Boolean deleteUser(int id_user) {
         try {
             MapSqlParameterSource params = new MapSqlParameterSource("id_user", id_user);
             return jdbcTemplate.update(sqlDeleteUser, params) > 0;

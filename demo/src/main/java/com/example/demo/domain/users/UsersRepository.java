@@ -13,7 +13,7 @@ public interface UsersRepository {
     List<Users> findAllUsers();
 
     //  Buscar por um usuário com a id sendo o parâmetro
-    Users findById(String id_user);
+    Users findById(int id_user);
 
     //  Buscar por um usuário com o username sendo o parâmetro
     Users findByUsername(String username);
@@ -25,5 +25,5 @@ public interface UsersRepository {
     Boolean updateUser(Users users);
 
     // Delete user
-    Boolean deleteUser(String id_user);
+    Boolean deleteUser(int id_user);
 }

@@ -20,7 +20,7 @@ public interface TasksRepository {
     PriorityTask mediaPriority();
 
     // Listar task por id
-    Tasks findById(String id_task);
+    Tasks findById(int id_task);
 
     // Create task
     Boolean saveTask(Tasks task);
@@ -29,5 +29,5 @@ public interface TasksRepository {
     Boolean updateTask(Tasks task);
 
     // Delete task
-    Boolean deleteTask(String id_task);
+    Boolean deleteTask(int id_task);
 }
