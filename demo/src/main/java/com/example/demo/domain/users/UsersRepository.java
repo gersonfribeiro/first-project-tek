@@ -10,7 +10,7 @@ import java.util.List;
 public interface UsersRepository {
 
     // Retorna todos os usuários
-    List<Users> findAllUsers();
+    List<Users> findAllUsers(int offset);
 
     //  Buscar por um usuário com a id sendo o parâmetro
     Users findById(int id_user);

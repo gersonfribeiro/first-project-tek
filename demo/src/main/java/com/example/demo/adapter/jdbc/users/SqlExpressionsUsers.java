@@ -3,7 +3,7 @@ package com.example.demo.adapter.jdbc.users;
 public class SqlExpressionsUsers {
 
     //  Consulta sql para retornar todos os usuários
-    public static final String sqlSelectAllUsers = "SELECT * FROM users";
+    public static final String sqlSelectAllUsers = "SELECT * FROM users LIMIT 10 OFFSET (:offset - 1) * 10";
 
     // Consulta sql para retornar um usuário com o parâmetro id
     public static final String sqlSelectUserById = "SELECT * FROM users WHERE id_user = ?";

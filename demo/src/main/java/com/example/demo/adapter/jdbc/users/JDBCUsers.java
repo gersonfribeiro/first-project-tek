@@ -44,11 +44,11 @@ public class JDBCUsers implements UsersRepository {
 
     // Implementação da consulta de todos os usuários, retornando em uma lista
     @Override
-    public List<Users> findAllUsers() {
+    public List<Users> findAllUsers(int offset) {
         try {
-            return jdbcTemplate.query(sqlSelectAllUsers, usersRowMapper());
+            MapSqlParameterSource parameters = new MapSqlParameterSource("offset", offset);
+            return jdbcTemplate.query(sqlSelectAllUsers, parameters, usersRowMapper());
         } catch (Exception e) {
-//            LOGGER.error(e.getMessage());
             throw e;
         }
     }
