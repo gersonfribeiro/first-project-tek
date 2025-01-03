@@ -18,6 +18,9 @@ public interface UsersRepository {
     //  Buscar por um usuário com o username sendo o parâmetro
     Users findByUsername(String username);
 
+    //  Buscar por um usuário com o email sendo o parâmetro, vai ser usado para imedir email duplicado
+    Users findByEmail(String email);
+
     // Create user
     Boolean insertUser(Users users);
 

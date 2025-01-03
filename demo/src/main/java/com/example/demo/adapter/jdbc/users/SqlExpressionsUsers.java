@@ -11,6 +11,9 @@ public class SqlExpressionsUsers {
     // Consulta sql para retornar um usuário com o parâmetro username
     public static final String sqlSelectUserByUsername = "SELECT * FROM users WHERE username = ?";
 
+    // Consulta sql para retornar um usuário com o parâmetro email
+    public static final String sqlSelectUserByEmail = "SELECT * FROM users WHERE email = ?";
+
     // Consulta sql para inserir um usuário
     public static final String sqlInsertUser = "INSERT INTO users (id_user, username, email, passwordUser) VALUES (?, ?, ?, ?)";
 

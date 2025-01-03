@@ -26,6 +26,14 @@ public class UserService {
         return userDomain;
     }
 
+    public Users findByEmail(String email) {
+        Users userDomain = usersRepository.findByEmail(email);
+        if (userDomain == null)
+            throw new RuntimeException("A user was not found for the email: " + email);
+
+        return userDomain;
+    }
+
     public Users findById(int id_user) {
         Users userDomain = usersRepository.findById(id_user);
         if (userDomain == null)
@@ -34,22 +42,26 @@ public class UserService {
         return userDomain;
     }
 
-    public Boolean insertUser(UsersCreateDTO usersCreate) {
+    public Users insertUser(UsersCreateDTO usersCreate) {
         Users usersDomain = usersCreate.toUser();
-        return usersRepository.insertUser(usersDomain);
+        if (usersRepository.findByEmail(usersDomain.getEmail()) != null)
+            throw new RuntimeException("The email is already in use");
+        usersRepository.insertUser(usersDomain);
+        return findById(usersDomain.getId_user());
     }
 
-    public Boolean updateUser(UsersUpdateDTO userUpdate, int id_user) {
+    public Users updateUser(UsersUpdateDTO userUpdate, int id_user) {
         if (usersRepository.findById(id_user) == null)
             throw new RuntimeException("User not found");
 
         Users userDomain = userUpdate.toUser(id_user);
-        return usersRepository.updateUser(userDomain);
+        usersRepository.updateUser(userDomain);
+        return findById(id_user);
     }
 
-    public Boolean deleteUser(int id_user) {
+    public void deleteUser(int id_user) {
         if (usersRepository.findById(id_user) == null)
             throw new RuntimeException("User not found");
-        return usersRepository.deleteUser(id_user);
+        usersRepository.deleteUser(id_user);
     }
 }

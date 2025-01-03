@@ -79,6 +79,19 @@ public class JDBCUsers implements UsersRepository {
         }
     }
 
+    // Implementação da consulta de usuario por email, armazenado em uma lista mas exibindo apenas o primeiro
+    @Override
+    public Users findByEmail(String email) {
+        List<Users> usuarios;
+        try {
+            MapSqlParameterSource parameters = new MapSqlParameterSource("email", email);
+            usuarios = jdbcTemplate.query(sqlSelectUserByEmail, parameters, usersRowMapper());
+            return usuarios.isEmpty() ? null : usuarios.getFirst();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
     // Implementação da inserção de usuario
     @Override
     public Boolean insertUser(Users users) {
