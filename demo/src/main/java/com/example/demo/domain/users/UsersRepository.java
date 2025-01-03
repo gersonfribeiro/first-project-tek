@@ -19,7 +19,7 @@ public interface UsersRepository {
     Users findByUsername(String username);
 
     // Create user
-    Boolean saveUser(Users users);
+    Boolean insertUser(Users users);
 
     // Update user
     Boolean updateUser(Users users);

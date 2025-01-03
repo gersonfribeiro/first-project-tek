@@ -23,7 +23,7 @@ public interface TasksRepository {
     Tasks findById(int id_task);
 
     // Create task
-    Boolean saveTask(Tasks task);
+    Boolean insertTask(Tasks task);
 
     // Update task
     Boolean updateTask(Tasks task);

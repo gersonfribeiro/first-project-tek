@@ -81,7 +81,7 @@ public class JDBCUsers implements UsersRepository {
 
     // Implementação da inserção de usuario
     @Override
-    public Boolean saveUser(Users users) {
+    public Boolean insertUser(Users users) {
         try {
             MapSqlParameterSource params = usersParameters(users);
             return jdbcTemplate.update(sqlInsertUser, params) > 0;

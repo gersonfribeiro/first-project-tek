@@ -60,8 +60,8 @@ public class JDBCTasks implements TasksRepository {
     @Override
     public int totalTasks() {
         try {
-            List<Tasks> tasks = jdbcTemplate.query(SIZE_ALL_TASKS, tasksRowMapper());
-            return tasks.size();
+            Integer totalTask = jdbcTemplate.queryForObject(SIZE_ALL_TASKS, new MapSqlParameterSource(), Integer.class);
+            return (totalTask != null) ? totalTask : 0;
         } catch (Exception e) {
             throw e;
         }
@@ -70,7 +70,8 @@ public class JDBCTasks implements TasksRepository {
     @Override
     public int countAllTasks() {
         try {
-            jdbcTemplate.queryForObject(SELEC)
+            Integer totalTaskCompleted = jdbcTemplate.queryForObject(SELECT_COMPLETED_TASKS_COUNT, new MapSqlParameterSource(), Integer.class);
+            return (totalTaskCompleted != null) ? totalTaskCompleted : 0;
         } catch (Exception e) {
             throw e;
         }
@@ -78,26 +79,51 @@ public class JDBCTasks implements TasksRepository {
 
     @Override
     public PriorityTask mediaPriority() {
-        return null;
+        try {
+            Double mediaPriority = jdbcTemplate.queryForObject(AVERAGE_TASKS_PENDING_PRIORITY, new MapSqlParameterSource(), Double.class);
+            return (mediaPriority != null) ? PriorityTask.getPriorityTask(mediaPriority) : null;
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     @Override
     public Tasks findById(int id_task) {
-        return null;
+        try {
+            MapSqlParameterSource parameters = new MapSqlParameterSource("id_task", id_task);
+            return jdbcTemplate.query(SELECT_TASK_BY_ID, parameters, tasksRowMapper()).getFirst();
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     @Override
-    public Boolean saveTask(Tasks task) {
-        return null;
+    public Boolean insertTask(Tasks task) {
+        try {
+            MapSqlParameterSource params = tasksParameters(task);
+            return jdbcTemplate.update(INSERT_TASK, params) > 0;
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     @Override
     public Boolean updateTask(Tasks task) {
-        return null;
+        try {
+            MapSqlParameterSource params = tasksParameters(task);
+            return jdbcTemplate.update(UPDATE_TASK, params) > 0;
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     @Override
     public Boolean deleteTask(int id_task) {
-        return null;
+        try {
+            MapSqlParameterSource params = new MapSqlParameterSource("id_task", id_task);
+            return jdbcTemplate.update(DELETE_TASK, params) > 0;
+        } catch (Exception e) {
+            throw e;
+        }
     }
 }
