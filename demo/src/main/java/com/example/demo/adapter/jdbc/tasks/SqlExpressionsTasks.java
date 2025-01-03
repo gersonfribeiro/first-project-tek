@@ -9,7 +9,7 @@ public class SqlExpressionsTasks {
     public static final String SIZE_ALL_TASKS = "SELECT COUNT(*) FROM tasks";
 
     // Consultar tasks com o status concluído e retornar a quantidade de tasks
-    public static final String SELECT_COMPLETED_TASKS_COUNT = "SELECT COUNT(*) FROM tasks WHERE status = 'FINISHED'";
+    public static final String SELECT_COMPLETED_TASKS_COUNT = "SELECT COUNT(*) FROM tasks WHERE statusTask = 'COMPLETED'";
 
     // Consulta que retorna um valor entre a média das prioridades dentre as tasks pendentes
     public static final String AVERAGE_TASKS_PENDING_PRIORITY =

@@ -39,22 +39,24 @@ public class TaskService {
         return tasksDomain;
     }
 
-    public Boolean insertTask(TaskCreateDTO taskCreate) {
+    public Tasks insertTask(TaskCreateDTO taskCreate) {
         Tasks tasksDomain =  taskCreate.toTasks();
-        return tasksRepository.insertTask(tasksDomain);
+        tasksRepository.insertTask(tasksDomain);
+        return findById(tasksDomain.getId_task());
     }
 
-    public Boolean updateTask(TaskUpdateDTO taskUpdate, int id_task) {
+    public Tasks updateTask(TaskUpdateDTO taskUpdate, int id_task) {
         if (tasksRepository.findById(id_task) == null)
             throw new RuntimeException("Task not found");
 
         Tasks tasksDomain =  taskUpdate.toTasks(id_task);
-        return tasksRepository.updateTask(tasksDomain);
+        tasksRepository.updateTask(tasksDomain);
+        return findById(id_task);
     }
 
-    public Boolean deleteTask(int id_task) {
+    public void deleteTask(int id_task) {
         if (tasksRepository.findById(id_task) == null)
             throw new RuntimeException("Task not found");
-        return tasksRepository.deleteTask(id_task);
+        tasksRepository.deleteTask(id_task);
     }
 }
