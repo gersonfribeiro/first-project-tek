@@ -30,7 +30,7 @@ public class JDBCTasks implements TasksRepository {
             String descriptionTask = rs.getString("descriptionTask");
             StatusTask statusTask = StatusTask.valueOf(rs.getString("statusTask"));
             PriorityTask priority = PriorityTask.valueOf(rs.getString("priority"));
-            Date createdDate = rs.getDate("created_date");
+            Date createdDate = rs.getDate("createdDate");
 
             return new Tasks(id_task, title, descriptionTask, statusTask, priority, createdDate);
 
@@ -45,12 +45,14 @@ public class JDBCTasks implements TasksRepository {
                 .addValue("descriptionTask", tasks.getDescriptionTask())
                 .addValue("statusTask", tasks.getStatusTask().name())
                 .addValue("priority", tasks.getPriority().name())
-                .addValue("created_date", tasks.getCreatedDate());
+                .addValue("createdDate", tasks.getCreatedDate());
     }
 
     @Override
     public List<Tasks> findAllTasks(int offset) {
         try {
+            // Garante que o valor mínimo do OFFSET será 0
+            offset = Math.max((offset - 1) * 10, 0);
             MapSqlParameterSource params = new MapSqlParameterSource("offset", offset);
             return jdbcTemplate.query(SELECT_ALL_TASKS, params, tasksRowMapper());
         } catch (Exception e) {

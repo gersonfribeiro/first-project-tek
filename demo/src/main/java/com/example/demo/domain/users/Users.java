@@ -47,10 +47,6 @@ public class Users {
         return passwordUser;
     }
 
-    public void setPasswordUser(String passwordUser) {
-        this.passwordUser = passwordUser;
-    }
-
     @Override
     public String toString() {
         return "Users{" +

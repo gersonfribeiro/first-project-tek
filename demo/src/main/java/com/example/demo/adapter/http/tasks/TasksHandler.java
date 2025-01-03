@@ -20,8 +20,9 @@ public class TasksHandler {
         this.taskService = taskService;
     }
 
-    public ResponseEntity<List<Tasks>> findAllTasks(int offset) {
-        List<Tasks> tasks = taskService.findAllTasks(offset);
+    public ResponseEntity<List<Tasks>> findAllTasks(String offset) {
+        int offsetInteger = Integer.parseInt(offset);
+        List<Tasks> tasks = taskService.findAllTasks(offsetInteger);
         return ResponseEntity.ok(tasks);
     }
 
@@ -38,8 +39,9 @@ public class TasksHandler {
         return ResponseEntity.ok(priorityTask);
     }
 
-    public ResponseEntity<Tasks> findById(int id_task) {
-        Tasks taskDomain = taskService.findById(id_task);
+    public ResponseEntity<Tasks> findById(String id_task) {
+        int id_taskInteger = Integer.parseInt(id_task);
+        Tasks taskDomain = taskService.findById(id_taskInteger);
         return ResponseEntity.ok(taskDomain);
     }
 
@@ -48,13 +50,15 @@ public class TasksHandler {
         return ResponseEntity.status(HttpStatus.CREATED).body(taskDomain);
     }
 
-    public ResponseEntity<Tasks> updateTask(TaskUpdateDTO taskUpdate, int id_task) {
-        Tasks taskDomain = taskService.updateTask(taskUpdate, id_task);
+    public ResponseEntity<Tasks> updateTask(TaskUpdateDTO taskUpdate, String id_task) {
+        int id_taskInteger = Integer.parseInt(id_task);
+        Tasks taskDomain = taskService.updateTask(taskUpdate, id_taskInteger);
         return ResponseEntity.status(HttpStatus.OK).body(taskDomain);
     }
 
-    public ResponseEntity<String> deleteTask(int id_task) {
-        taskService.deleteTask(id_task);
+    public ResponseEntity<String> deleteTask(String id_task) {
+        int id_taskInteger = Integer.parseInt(id_task);
+        taskService.deleteTask(id_taskInteger);
         return ResponseEntity.noContent().build();
     }
 }

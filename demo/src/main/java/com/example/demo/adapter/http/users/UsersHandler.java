@@ -19,8 +19,9 @@ public class UsersHandler {
         this.userService = userService;
     }
 
-    public ResponseEntity<List<Users>> findAllUsers(int offset) {
-        List<Users> users = userService.findAllUsers(offset);
+    public ResponseEntity<List<Users>> findAllUsers(String offset) {
+        int offsetInteger = Integer.parseInt(offset);
+        List<Users> users = userService.findAllUsers(offsetInteger);
         return ResponseEntity.ok(users);
     }
 
@@ -34,8 +35,9 @@ public class UsersHandler {
         return ResponseEntity.ok(userDomain);
     }
 
-    public ResponseEntity<Users> findById(int id_user) {
-        Users userDomain = userService.findById(id_user);
+    public ResponseEntity<Users> findById(String id_user) {
+        int id_userInteger = Integer.parseInt(id_user);
+        Users userDomain = userService.findById(id_userInteger);
         return ResponseEntity.ok(userDomain);
     }
 
@@ -44,13 +46,15 @@ public class UsersHandler {
         return ResponseEntity.status(HttpStatus.CREATED).body(usersDomain);
     }
 
-    public ResponseEntity<Users> updateUser(UsersUpdateDTO userUpdate, int id_user) {
-        Users userDomain = userService.updateUser(userUpdate, id_user);
+    public ResponseEntity<Users> updateUser(UsersUpdateDTO userUpdate, String id_user) {
+        int id_userInteger = Integer.parseInt(id_user);
+        Users userDomain = userService.updateUser(userUpdate, id_userInteger);
         return ResponseEntity.status(HttpStatus.OK).body(userDomain);
     }
 
-    public ResponseEntity<String> deleteUser(int id_user) {
-        userService.deleteUser(id_user);
+    public ResponseEntity<String> deleteUser(String id_user) {
+        int id_userInteger = Integer.parseInt(id_user);
+        userService.deleteUser(id_userInteger);
         return ResponseEntity.noContent().build();
     }
 }

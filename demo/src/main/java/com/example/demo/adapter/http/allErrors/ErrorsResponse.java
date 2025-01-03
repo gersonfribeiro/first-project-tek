@@ -1,6 +1,5 @@
 package com.example.demo.adapter.http.allErrors;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ErrorsResponse {
@@ -25,4 +24,3 @@ public class ErrorsResponse {
         return status;
     }
 }
-

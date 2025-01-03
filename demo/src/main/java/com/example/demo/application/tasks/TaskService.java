@@ -16,7 +16,6 @@ public class TaskService {
     }
 
     public List<Tasks> findAllTasks(int offset) {
-        offset = (offset - 1) * 10;
         return tasksRepository.findAllTasks(offset);
     }
 
@@ -32,7 +31,7 @@ public class TaskService {
         return tasksRepository.mediaPriority();
     }
 
-    public Tasks findById(int id_task) {
+    public Tasks findById(int id_task) throws RuntimeException {
         Tasks tasksDomain = tasksRepository.findById(id_task);
         if (tasksDomain == null)
             throw new RuntimeException("Task not found");
@@ -43,7 +42,8 @@ public class TaskService {
     public Tasks insertTask(TaskCreateDTO taskCreate) {
         Tasks tasksDomain =  taskCreate.toTasks();
         tasksRepository.insertTask(tasksDomain);
-        return findById(tasksDomain.getId_task());
+        int id_task = tasksDomain.getId_task();
+        return findById(id_task);
     }
 
     public Tasks updateTask(TaskUpdateDTO taskUpdate, int id_task) {

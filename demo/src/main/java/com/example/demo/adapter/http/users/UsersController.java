@@ -19,7 +19,7 @@ public class UsersController {
     }
 
     @GetMapping("all")
-    public ResponseEntity<List<Users>> findAllUsers(@RequestParam int offset) {
+    public ResponseEntity<List<Users>> findAllUsers(@RequestParam String offset) {
         return usersHandler.findAllUsers(offset);
     }
 
@@ -34,7 +34,7 @@ public class UsersController {
     }
 
     @GetMapping("user")
-    public ResponseEntity<Users> findById(@RequestParam int id_user) {
+    public ResponseEntity<Users> findById(@RequestParam String id_user) {
         return usersHandler.findById(id_user);
     }
 
@@ -44,12 +44,12 @@ public class UsersController {
     }
 
     @PutMapping()
-    public ResponseEntity<Users> updateUser(@RequestBody UsersUpdateDTO userUpdate, @RequestParam int id_user) {
+    public ResponseEntity<Users> updateUser(@RequestBody UsersUpdateDTO userUpdate, @RequestParam String id_user) {
         return usersHandler.updateUser(userUpdate, id_user);
     }
 
     @DeleteMapping()
-    public ResponseEntity<String> deleteUser(@RequestParam int id_user) {
+    public ResponseEntity<String> deleteUser(@RequestParam String id_user) {
         return usersHandler.deleteUser(id_user);
     }
 

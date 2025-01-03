@@ -18,5 +18,4 @@ public class TaskCreateDTO {
     public Tasks toTasks() {
         return new Tasks(title, descriptionTask, priority);
     }
-
 }

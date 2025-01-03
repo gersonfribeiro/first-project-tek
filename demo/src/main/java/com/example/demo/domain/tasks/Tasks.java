@@ -55,40 +55,20 @@ public class Tasks {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getDescriptionTask() {
         return descriptionTask;
-    }
-
-    public void setDescriptionTask(String descriptionTask) {
-        this.descriptionTask = descriptionTask;
     }
 
     public StatusTask getStatusTask() {
         return statusTask;
     }
 
-    public void setStatusTask(StatusTask statusTask) {
-        this.statusTask = statusTask;
-    }
-
     public PriorityTask getPriority() {
         return priority;
     }
 
-    public void setPriority(PriorityTask priority) {
-        this.priority = priority;
-    }
-
     public Date getCreatedDate() {
         return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
     }
 
     @Override

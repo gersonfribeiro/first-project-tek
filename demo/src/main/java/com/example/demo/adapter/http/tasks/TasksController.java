@@ -19,8 +19,8 @@ public class TasksController {
         this.tasksHandler = tasksHandler;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Tasks>> findAllTasks(@RequestParam Integer offset) {
+    @GetMapping("/all/{offset}")
+    public ResponseEntity<List<Tasks>> findAllTasks(@PathVariable String offset) {
         return tasksHandler.findAllTasks(offset);
     }
 
@@ -40,7 +40,7 @@ public class TasksController {
     }
 
     @GetMapping("task")
-    public ResponseEntity<Tasks> findById(@RequestParam Integer id_task) {
+    public ResponseEntity<Tasks> findById(@RequestParam("id_task") String id_task) {
         return tasksHandler.findById(id_task);
     }
 
@@ -50,12 +50,12 @@ public class TasksController {
     }
 
     @PutMapping()
-    public ResponseEntity<Tasks> updateTask(TaskUpdateDTO taskUpdate, int id_task) {
+    public ResponseEntity<Tasks> updateTask(TaskUpdateDTO taskUpdate, String id_task) {
         return tasksHandler.updateTask(taskUpdate, id_task);
     }
 
     @DeleteMapping()
-    public ResponseEntity<String> deleteTask(@RequestParam Integer id_task) {
+    public ResponseEntity<String> deleteTask(@RequestParam("id_task") String id_task) {
         return tasksHandler.deleteTask(id_task);
     }
 }

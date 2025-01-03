@@ -35,7 +35,7 @@ public class UserService {
         return userDomain;
     }
 
-    public Users findById(int id_user) {
+    public Users findById(int id_user) throws RuntimeException {
         Users userDomain = usersRepository.findById(id_user);
         if (userDomain == null)
             throw new RuntimeException("A user was not found for the id: " + id_user);
