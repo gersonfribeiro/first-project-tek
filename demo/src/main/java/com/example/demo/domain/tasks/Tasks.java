@@ -51,6 +51,10 @@ public class Tasks {
         return id_task;
     }
 
+    public void setId_task(int id_task) {
+        this.id_task = id_task;
+    }
+
     public String getTitle() {
         return title;
     }

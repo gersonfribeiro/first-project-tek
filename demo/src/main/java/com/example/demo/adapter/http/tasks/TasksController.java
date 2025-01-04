@@ -50,7 +50,7 @@ public class TasksController {
     }
 
     @PutMapping()
-    public ResponseEntity<Tasks> updateTask(TaskUpdateDTO taskUpdate, String id_task) {
+    public ResponseEntity<Tasks> updateTask(@RequestBody TaskUpdateDTO taskUpdate, String id_task) {
         return tasksHandler.updateTask(taskUpdate, id_task);
     }
 

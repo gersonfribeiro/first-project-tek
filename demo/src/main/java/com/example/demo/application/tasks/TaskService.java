@@ -42,8 +42,8 @@ public class TaskService {
     public Tasks insertTask(TaskCreateDTO taskCreate) {
         Tasks tasksDomain =  taskCreate.toTasks();
         tasksRepository.insertTask(tasksDomain);
-        int id_task = tasksDomain.getId_task();
-        return findById(id_task);
+        tasksDomain.setId_task(totalTasks());
+        return tasksDomain;
     }
 
     public Tasks updateTask(TaskUpdateDTO taskUpdate, int id_task) {
