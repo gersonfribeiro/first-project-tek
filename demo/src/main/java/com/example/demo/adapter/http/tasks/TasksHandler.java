@@ -20,6 +20,9 @@ public class TasksHandler {
         this.taskService = taskService;
     }
 
+    // Todos os métodos abaixo fazem a mesma coisa, chama o serviço fazendo o tratamento das
+    // variáveis e conversões de tipos entre o controlle e o service, de String para requerido
+
     public ResponseEntity<List<Tasks>> findAllTasks(String offset) {
         int offsetInteger = Integer.parseInt(offset);
         List<Tasks> tasks = taskService.findAllTasks(offsetInteger);

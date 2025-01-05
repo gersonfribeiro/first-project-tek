@@ -19,10 +19,17 @@ public class UsersHandler {
         this.userService = userService;
     }
 
+    // Todos os métodos abaixo fazem a mesma coisa, chama o serviço fazendo o tratamento das
+    // variáveis e conversões de tipos entre o controlle e o service, de String para requerido
+
     public ResponseEntity<List<Users>> findAllUsers(String offset) {
         int offsetInteger = Integer.parseInt(offset);
         List<Users> users = userService.findAllUsers(offsetInteger);
         return ResponseEntity.ok(users);
+    }
+
+    public ResponseEntity<String> countUsers() {
+        return ResponseEntity.ok(String.format("Total number of registered users: %d", userService.countUsers()));
     }
 
     public ResponseEntity<Users> findByUsername(String username) {

@@ -27,6 +27,10 @@ public class Users {
         return id_user;
     }
 
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -45,6 +49,10 @@ public class Users {
 
     public String getPasswordUser() {
         return passwordUser;
+    }
+
+    public void setPasswordUser(String passwordUser) {
+        this.passwordUser = passwordUser;
     }
 
     @Override

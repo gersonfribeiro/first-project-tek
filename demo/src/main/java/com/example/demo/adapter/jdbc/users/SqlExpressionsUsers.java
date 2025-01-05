@@ -5,6 +5,8 @@ public class SqlExpressionsUsers {
     //  Consulta sql para retornar todos os usuários
     public static final String sqlSelectAllUsers = "SELECT * FROM users LIMIT 10 OFFSET :offset";
 
+    public static final String sqlSizeAllTasks = "SELECT COUNT(*) FROM users";
+
     // Consulta sql para retornar um usuário com o parâmetro id
     public static final String sqlSelectUserById = "SELECT * FROM users WHERE id_user = :id_user";
 

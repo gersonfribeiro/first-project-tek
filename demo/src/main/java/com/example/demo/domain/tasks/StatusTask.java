@@ -4,5 +4,5 @@ package com.example.demo.domain.tasks;
 public enum StatusTask {
     PENDING,
     IN_PROGRESS,
-    FINISHED
+    COMPLETED
 }

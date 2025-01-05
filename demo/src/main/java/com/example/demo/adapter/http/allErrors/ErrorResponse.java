@@ -2,7 +2,7 @@ package com.example.demo.adapter.http.allErrors;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ErrorsResponse {
+public class ErrorResponse {
 
     @JsonProperty("mensagem")
     private String message;
@@ -11,7 +11,7 @@ public class ErrorsResponse {
     private int status;
 
     // Construtor genérico
-    public ErrorsResponse(String message, int status) {
+    public ErrorResponse(String message, int status) {
         this.message = message;
         this.status = status;
     }

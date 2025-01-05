@@ -19,22 +19,27 @@ public class UsersController {
     }
 
     @GetMapping("all")
-    public ResponseEntity<List<Users>> findAllUsers(@RequestParam String offset) {
+    public ResponseEntity<List<Users>> findAllUsers(@RequestParam("offset") String offset) {
         return usersHandler.findAllUsers(offset);
     }
 
+    @GetMapping("count-all-users")
+    public ResponseEntity<String> countUsers() {
+        return usersHandler.countUsers();
+    }
+
     @GetMapping("username")
-    public ResponseEntity<Users> findByUsername(@RequestParam String username) {
+    public ResponseEntity<Users> findByUsername(@RequestParam("username") String username) {
         return usersHandler.findByUsername(username);
     }
 
     @GetMapping("email")
-    public ResponseEntity<Users> findByEmail(@RequestParam String email) {
+    public ResponseEntity<Users> findByEmail(@RequestParam("email") String email) {
         return usersHandler.findByEmail(email);
     }
 
     @GetMapping("user")
-    public ResponseEntity<Users> findById(@RequestParam String id_user) {
+    public ResponseEntity<Users> findById(@RequestParam("id_user") String id_user) {
         return usersHandler.findById(id_user);
     }
 
@@ -49,7 +54,7 @@ public class UsersController {
     }
 
     @DeleteMapping()
-    public ResponseEntity<String> deleteUser(@RequestParam String id_user) {
+    public ResponseEntity<String> deleteUser(@RequestParam("id_user") String id_user) {
         return usersHandler.deleteUser(id_user);
     }
 

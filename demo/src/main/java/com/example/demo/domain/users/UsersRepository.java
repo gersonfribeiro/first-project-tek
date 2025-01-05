@@ -12,6 +12,8 @@ public interface UsersRepository {
     // Retorna todos os usuários
     List<Users> findAllUsers(int offset);
 
+    int countUsers();
+
     //  Buscar por um usuário com a id sendo o parâmetro
     Users findById(int id_user);
 
