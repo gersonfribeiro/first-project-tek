@@ -51,44 +51,28 @@ public class Tasks {
         return id_task;
     }
 
-    public String getTitle() {
-        return title;
+    public void setId_task(int id_task) {
+        this.id_task = id_task;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getTitle() {
+        return title;
     }
 
     public String getDescriptionTask() {
         return descriptionTask;
     }
 
-    public void setDescriptionTask(String descriptionTask) {
-        this.descriptionTask = descriptionTask;
-    }
-
     public StatusTask getStatusTask() {
         return statusTask;
-    }
-
-    public void setStatusTask(StatusTask statusTask) {
-        this.statusTask = statusTask;
     }
 
     public PriorityTask getPriority() {
         return priority;
     }
 
-    public void setPriority(PriorityTask priority) {
-        this.priority = priority;
-    }
-
     public Date getCreatedDate() {
         return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
     }
 
     @Override

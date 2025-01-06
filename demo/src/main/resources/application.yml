@@ -1,3 +1,17 @@
 spring:
   application:
-    name=demo
+    name: demo
+  main:
+    web-application-type: servlet
+  web:
+    resources:
+      add-mappings: false
+  datasource:
+    name: ${DOTENV_NAME}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DOTENV_URL}
+    username: ${DOTENV_USERNAME}
+    password: ${DOTENV_PASSWORD}
+
+server:
+  port: 8080

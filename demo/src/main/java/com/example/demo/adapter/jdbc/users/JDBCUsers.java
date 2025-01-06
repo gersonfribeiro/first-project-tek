@@ -1,12 +1,16 @@
 package com.example.demo.adapter.jdbc.users;
 
+import com.example.demo.adapter.http.allErrors.ErrorHandler;
 import com.example.demo.domain.users.Users;
 import com.example.demo.domain.users.UsersRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import static com.example.demo.adapter.jdbc.tasks.SqlExpressionsTasks.SIZE_ALL_TASKS;
 import static com.example.demo.adapter.jdbc.users.SqlExpressionsUsers.*;
 
 import java.util.List;
@@ -19,7 +23,7 @@ public class JDBCUsers implements UsersRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-//    private static final Logger LOGGER = LoggerFactory.getLogger(ErrorHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ErrorHandler.class);
 
     // O rowMapper é responsável por mapear a resposta que da minha consulta sql e converter em um objeto
     private RowMapper<Users> usersRowMapper() {
@@ -44,11 +48,25 @@ public class JDBCUsers implements UsersRepository {
 
     // Implementação da consulta de todos os usuários, retornando em uma lista
     @Override
-    public List<Users> findAllUsers() {
+    public List<Users> findAllUsers(int offset) {
         try {
-            return jdbcTemplate.query(sqlSelectAllUsers, usersRowMapper());
+            // Garante que o valor mínimo do OFFSET será 0
+            offset = Math.max((offset - 1) * 10, 0);
+            MapSqlParameterSource parameters = new MapSqlParameterSource("offset", offset);
+            return jdbcTemplate.query(sqlSelectAllUsers, parameters, usersRowMapper());
         } catch (Exception e) {
-//            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public int countUsers() {
+        try {
+            Integer totalTask = jdbcTemplate.queryForObject(sqlSizeAllTasks, new MapSqlParameterSource(), Integer.class);
+            return (totalTask != null) ? totalTask : 0;
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             throw e;
         }
     }
@@ -62,6 +80,7 @@ public class JDBCUsers implements UsersRepository {
             usuarios = jdbcTemplate.query(sqlSelectUserById, parameters, usersRowMapper());
             return usuarios.isEmpty() ? null : usuarios.getFirst();
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             throw e;
         }
     }
@@ -75,6 +94,21 @@ public class JDBCUsers implements UsersRepository {
             usuarios = jdbcTemplate.query(sqlSelectUserByUsername, parameters, usersRowMapper());
             return usuarios.isEmpty() ? null : usuarios.getFirst();
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            throw e;
+        }
+    }
+
+    // Implementação da consulta de usuario por email, armazenado em uma lista mas exibindo apenas o primeiro
+    @Override
+    public Users findByEmail(String email) {
+        List<Users> usuarios;
+        try {
+            MapSqlParameterSource parameters = new MapSqlParameterSource("email", email);
+            usuarios = jdbcTemplate.query(sqlSelectUserByEmail, parameters, usersRowMapper());
+            return usuarios.isEmpty() ? null : usuarios.getFirst();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             throw e;
         }
     }
@@ -86,6 +120,7 @@ public class JDBCUsers implements UsersRepository {
             MapSqlParameterSource params = usersParameters(users);
             return jdbcTemplate.update(sqlInsertUser, params) > 0;
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             throw e;
         }
     }
@@ -97,6 +132,7 @@ public class JDBCUsers implements UsersRepository {
             MapSqlParameterSource params = usersParameters(users);
             return jdbcTemplate.update(sqlEditarUser, params) > 0;
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             throw e;
         }
     }
@@ -108,6 +144,7 @@ public class JDBCUsers implements UsersRepository {
             MapSqlParameterSource params = new MapSqlParameterSource("id_user", id_user);
             return jdbcTemplate.update(sqlDeleteUser, params) > 0;
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             throw e;
         }
     }
