@@ -1,3 +1,5 @@
+CREATE DATABASE tasks;
+
 CREATE TABLE tasks (
 	id_task INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(30) NOT NULL,
