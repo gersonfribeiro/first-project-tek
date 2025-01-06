@@ -1,6 +1,5 @@
 package com.example.demo.config.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,10 +23,11 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    @Autowired
-    AuthorizationService authorizationService;
-    @Autowired
-    SecurityFilter securityFilter;
+    private final SecurityFilter securityFilter;
+
+    public SecurityConfiguration(SecurityFilter securityFilter) {
+        this.securityFilter = securityFilter;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -36,9 +36,11 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "users/login").permitAll()
                         // Permite que qualquer usuário crie uma conta
                         .requestMatchers(HttpMethod.POST, "users").permitAll()
+                        // Permite que qualquer usuário faça login
+                        .requestMatchers(HttpMethod.POST, "users/login").permitAll()
+                        // Demais métodos pedem autenticação
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

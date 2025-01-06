@@ -21,6 +21,11 @@ public class TaskService {
         return tasksRepository.findAllTasks(offset);
     }
 
+    // Retorna o id da última tasks
+    public int idLastTasks() {
+        return tasksRepository.idLastTasks();
+    }
+
     // Retorna o n° total de tasks, independente do status
     public int totalTasks() {
         return tasksRepository.totalTasks();
@@ -55,7 +60,7 @@ public class TaskService {
         tasksRepository.insertTask(tasksDomain);
         // Como o banco faz o auto incremente do id, não sabemos qual é, mas como já inserimos no banco,
         // podemos calcular a quantidade de tasks e setar como id para devolver ao cliente o objeto completo
-        tasksDomain.setId_task(totalTasks());
+        tasksDomain.setId_task(idLastTasks());
         return tasksDomain;
     }
 

@@ -13,15 +13,17 @@ public interface UsersRepository {
     // Retorna todos os usuários
     List<Users> findAllUsers(int offset);
 
+    // id último usuário
+    int idLastUser();
 
-
+    // Conta a quantidade total de usuários
     int countUsers();
 
     //  Buscar por um usuário com a id sendo o parâmetro
     Users findById(int id_user);
 
     //  Buscar por um usuário com o username sendo o parâmetro
-    UserDetails findByUsername(String username);
+    Users findByUsername(String username);
 
     //  Buscar por um usuário com o email sendo o parâmetro, vai ser usado para imedir email duplicado
     UserDetails findByEmail(String email);

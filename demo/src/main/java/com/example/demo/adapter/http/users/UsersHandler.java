@@ -33,8 +33,8 @@ public class UsersHandler {
         return ResponseEntity.ok(String.format("Total number of registered users: %d", userService.countUsers()));
     }
 
-    public ResponseEntity<UserDetails> findByUsername(String username) {
-        UserDetails userDomain = userService.findByUsername(username);
+    public ResponseEntity<Users> findByUsername(String username) {
+        Users userDomain = userService.findByUsername(username);
         return ResponseEntity.ok(userDomain);
     }
 

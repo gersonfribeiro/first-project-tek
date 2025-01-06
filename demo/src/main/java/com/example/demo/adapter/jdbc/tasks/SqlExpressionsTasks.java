@@ -33,4 +33,7 @@ public class SqlExpressionsTasks {
     // Consulta sql para remover uma task
     public static final String DELETE_TASK = "DELETE FROM tasks WHERE id_task = :id_task";
 
+    // Devolve o id do último registro
+    public static final String LAST_TASK = "SELECT id_task FROM tasks ORDER BY id_task DESC LIMIT 1";
+
 }
