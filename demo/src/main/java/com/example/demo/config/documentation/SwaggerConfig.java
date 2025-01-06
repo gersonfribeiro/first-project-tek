@@ -26,7 +26,7 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info()  // Cria uma nova instância de Info para definir os metadados da API
                         .title("Spring Boot REST API")  // Define o título da API
-                        .description("Projeto QuoteFlow")  // Descrição da API
+                        .description("Demo")  // Descrição da API
                         .version("1.0.0"))  // Define a versão da API
                 .addSecurityItem(new SecurityRequirement().addList("BearerAuth"))
                 .components(new io.swagger.v3.oas.models.Components()
@@ -36,4 +36,3 @@ public class SwaggerConfig {
                                 .bearerFormat("JWT")));
     }
 }
-

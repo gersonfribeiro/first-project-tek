@@ -6,6 +6,7 @@ import com.example.demo.application.users.UsersUpdateDTO;
 import com.example.demo.domain.users.Users;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -32,13 +33,13 @@ public class UsersHandler {
         return ResponseEntity.ok(String.format("Total number of registered users: %d", userService.countUsers()));
     }
 
-    public ResponseEntity<Users> findByUsername(String username) {
-        Users userDomain = userService.findByUsername(username);
+    public ResponseEntity<UserDetails> findByUsername(String username) {
+        UserDetails userDomain = userService.findByUsername(username);
         return ResponseEntity.ok(userDomain);
     }
 
-    public ResponseEntity<Users> findByEmail(String email) {
-        Users userDomain = userService.findByEmail(email);
+    public ResponseEntity<UserDetails> findByEmail(String email) {
+        UserDetails userDomain = userService.findByEmail(email);
         return ResponseEntity.ok(userDomain);
     }
 

@@ -1,9 +1,17 @@
 package com.example.demo.adapter.http.users;
 
+import com.example.demo.application.users.AuthenticationDTO;
+import com.example.demo.application.users.LoginResponseDTO;
 import com.example.demo.application.users.UsersCreateDTO;
 import com.example.demo.application.users.UsersUpdateDTO;
+import com.example.demo.config.security.TokenService;
 import com.example.demo.domain.users.Users;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +26,20 @@ public class UsersController {
         this.usersHandler = usersHandler;
     }
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private TokenService tokenService;
+
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
+        var usernamePassword = new UsernamePasswordAuthenticationToken(data.getEmailUser(), data.getPasswordUser());
+        var auth = this.authenticationManager.authenticate(usernamePassword);
+        var token = tokenService.generateToken((Users) auth.getPrincipal());
+        return ResponseEntity.ok(new LoginResponseDTO(token));
+    }
+
     @GetMapping("all")
     public ResponseEntity<List<Users>> findAllUsers(@RequestParam("offset") String offset) {
         return usersHandler.findAllUsers(offset);
@@ -29,12 +51,12 @@ public class UsersController {
     }
 
     @GetMapping("username")
-    public ResponseEntity<Users> findByUsername(@RequestParam("username") String username) {
+    public ResponseEntity<UserDetails> findByUsername(@RequestParam("username") String username) {
         return usersHandler.findByUsername(username);
     }
 
     @GetMapping("email")
-    public ResponseEntity<Users> findByEmail(@RequestParam("email") String email) {
+    public ResponseEntity<UserDetails> findByEmail(@RequestParam("email") String email) {
         return usersHandler.findByEmail(email);
     }
 

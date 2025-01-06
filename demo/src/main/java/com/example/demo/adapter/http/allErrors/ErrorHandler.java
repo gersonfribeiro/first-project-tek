@@ -5,6 +5,7 @@ import com.example.demo.application.users.exceptions.UsuarioEmailCadastradoExcep
 import com.example.demo.application.users.exceptions.UsuarioEmailNaoEncontradoException;
 import com.example.demo.application.users.exceptions.UsuarioNaoEncontradoException;
 import com.example.demo.application.users.exceptions.UsuarioNaoEncontradoUsernameException;
+import com.example.demo.config.security.exceptions.FalhaAoGerarToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -53,6 +54,14 @@ public class ErrorHandler {
                 e.getMessage(),
                 HttpStatus.NOT_FOUND.value());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(FalhaAoGerarToken.class)
+    public ResponseEntity<ErrorResponse> handleFalhaAoGerarToken(FalhaAoGerarToken e) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                e.getMessage(),
+                HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(RuntimeException.class)

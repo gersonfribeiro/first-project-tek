@@ -6,6 +6,9 @@ import com.example.demo.application.users.exceptions.UsuarioNaoEncontradoExcepti
 import com.example.demo.application.users.exceptions.UsuarioNaoEncontradoUsernameException;
 import com.example.demo.domain.users.Users;
 import com.example.demo.domain.users.UsersRepository;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,8 +32,8 @@ public class UserService {
     }
 
     // Busca um usuário pelo seu username
-    public Users findByUsername(String username) {
-        Users userDomain = usersRepository.findByUsername(username);
+    public UserDetails findByUsername(String username) {
+        UserDetails userDomain = usersRepository.findByUsername(username);
         // valida se existe um usuário com o username inserido
         if (userDomain == null)
             // Exception personalizada em caso de não encontrar
@@ -40,9 +43,9 @@ public class UserService {
     }
 
     // Busca um usuário pelo seu email
-    public Users findByEmail(String email) {
+    public UserDetails findByEmail(String email) {
         // Armazena a resposta do método em um objeto do domínio
-        Users userDomain = usersRepository.findByEmail(email);
+        UserDetails userDomain = usersRepository.findByEmail(email);
         // Validação se o usuário existe
         if (userDomain == null)
             // Exception personalizada em caso de not found
@@ -73,6 +76,8 @@ public class UserService {
             // Exception personalizada para email duplicado
             throw new UsuarioEmailCadastradoException(emailUsuario);
         // Chama o método que insere os dados no banco
+        String encryptedPassword = new BCryptPasswordEncoder().encode(userDomain.getPassword());
+        userDomain.setPasswordUser(encryptedPassword);
         usersRepository.insertUser(userDomain);
         // Esse método é apenas para informar o id no retorno,
         // como a responsabilidade é do banco de auto incrementar, não sabemos o id
