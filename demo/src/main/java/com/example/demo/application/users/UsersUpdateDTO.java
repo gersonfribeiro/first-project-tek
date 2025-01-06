@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UsersUpdateDTO {
 
-    @JsonProperty("username")
-    private String username;
+    @JsonProperty("usernameUser")
+    private String usernameUser;
 
     @JsonProperty("email")
     private String email;
@@ -15,11 +15,11 @@ public class UsersUpdateDTO {
     private String passwordUser;
 
     public Users toUser(int id_user) {
-        return new Users(id_user, username, email, passwordUser);
+        return new Users(id_user, usernameUser, email, passwordUser);
     }
 
-    public String getUsername() {
-        return username;
+    public String getUsernameUser() {
+        return usernameUser;
     }
 
     public String getEmail() {

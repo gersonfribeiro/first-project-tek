@@ -10,6 +10,9 @@ public interface TasksRepository {
     // Listar todas as tasks
     List<Tasks> findAllTasks(int offset);
 
+    // id última tasks
+    int idLastTasks();
+
     // Número total de tasks
     int totalTasks();
 

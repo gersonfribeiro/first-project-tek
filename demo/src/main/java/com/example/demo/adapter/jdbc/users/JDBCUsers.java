@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import static com.example.demo.adapter.jdbc.tasks.SqlExpressionsTasks.SIZE_ALL_TASKS;
 import static com.example.demo.adapter.jdbc.users.SqlExpressionsUsers.*;
 
 import java.util.List;
@@ -29,11 +28,11 @@ public class JDBCUsers implements UsersRepository {
     private RowMapper<Users> usersRowMapper() {
         return (rs, rowNum) -> {
             int id_user = Integer.parseInt(rs.getString("id_user"));
-            String username = rs.getString("username");
+            String usernameUser = rs.getString("usernameUser");
             String email = rs.getString("email");
             String passwordUser = rs.getString("passwordUser");
 
-            return new Users(id_user, username, email, passwordUser);
+            return new Users(id_user, usernameUser, email, passwordUser);
         };
     }
 
@@ -41,7 +40,7 @@ public class JDBCUsers implements UsersRepository {
     private MapSqlParameterSource usersParameters(Users users) {
         return new MapSqlParameterSource()
                 .addValue("id_user", users.getId_user())
-                .addValue("username", users.getUsername())
+                .addValue("usernameUser", users.getUsernameUser())
                 .addValue("email", users.getEmail())
                 .addValue("passwordUser", users.getPasswordUser());
     }
@@ -54,6 +53,17 @@ public class JDBCUsers implements UsersRepository {
             offset = Math.max((offset - 1) * 10, 0);
             MapSqlParameterSource parameters = new MapSqlParameterSource("offset", offset);
             return jdbcTemplate.query(sqlSelectAllUsers, parameters, usersRowMapper());
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public int idLastUser() {
+        try {
+            Integer idLastUser = jdbcTemplate.queryForObject(sqlLastUser, new MapSqlParameterSource(), Integer.class);
+            return (idLastUser != null) ? idLastUser : 0;
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             throw e;
@@ -90,7 +100,7 @@ public class JDBCUsers implements UsersRepository {
     public Users findByUsername(String username) {
         List<Users> usuarios;
         try {
-            MapSqlParameterSource parameters = new MapSqlParameterSource("username", username);
+            MapSqlParameterSource parameters = new MapSqlParameterSource("usernameUser", username);
             usuarios = jdbcTemplate.query(sqlSelectUserByUsername, parameters, usersRowMapper());
             return usuarios.isEmpty() ? null : usuarios.getFirst();
         } catch (Exception e) {

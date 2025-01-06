@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserService {
@@ -26,19 +27,23 @@ public class UserService {
         return usersRepository.findAllUsers(offset);
     }
 
+    // Retorna o último id de usuários
+    public int idLastUsers() {
+        return usersRepository.idLastUser();
+    }
+
     // Retorna a quantidade de usuários totais
     public int countUsers() {
         return usersRepository.countUsers();
     }
 
     // Busca um usuário pelo seu username
-    public UserDetails findByUsername(String username) {
-        UserDetails userDomain = usersRepository.findByUsername(username);
+    public Users findByUsername(String username) {
+        Users userDomain = usersRepository.findByUsername(username);
         // valida se existe um usuário com o username inserido
         if (userDomain == null)
             // Exception personalizada em caso de não encontrar
             throw new UsuarioNaoEncontradoUsernameException(username);
-
         return userDomain;
     }
 
@@ -50,7 +55,6 @@ public class UserService {
         if (userDomain == null)
             // Exception personalizada em caso de not found
             throw new UsuarioEmailNaoEncontradoException(email);
-
         return userDomain;
     }
 
@@ -62,7 +66,6 @@ public class UserService {
         if (userDomain == null)
             // Exception personalizada em caso de not found
             throw new UsuarioNaoEncontradoException();
-
         return userDomain;
     }
 
@@ -81,22 +84,29 @@ public class UserService {
         usersRepository.insertUser(userDomain);
         // Esse método é apenas para informar o id no retorno,
         // como a responsabilidade é do banco de auto incrementar, não sabemos o id
-        userDomain.setId_user(countUsers());
+        userDomain.setId_user(idLastUsers());
         return userDomain;
     }
 
     public Users updateUser(UsersUpdateDTO userUpdate, int id_user) {
+        // Armazena o usuário antes da modificação
+        Users userBefore = usersRepository.findById(id_user);
         // Verificação se o usuário existe para o id do parâmetro
-        if (usersRepository.findById(id_user) == null)
+        if (userBefore == null)
             // Exception personalisada em caso de um not found
             throw new UsuarioNaoEncontradoException();
         // Converte o dto em um usuário da classe de domínio
         Users userDomain = userUpdate.toUser(id_user);
         // Armazena o email para validação
         String emailUsuario = userDomain.getEmail();
-        // Valida se o email já está em uso
-        if (usersRepository.findByEmail(emailUsuario) != null)
+        // Valida se o email já está em uso e se foi modificado, se permanecer o mesmo, permite o update
+        if (usersRepository.findByEmail(emailUsuario) != null && !Objects.equals(emailUsuario, userBefore.getEmail()))
             throw new UsuarioEmailCadastradoException(emailUsuario);
+
+        // também é possível modificar a senha, encode também deve ser feito
+        String encryptedPassword = new BCryptPasswordEncoder().encode(userDomain.getPassword());
+        userDomain.setPasswordUser(encryptedPassword);
+
         // Após passar pelas validações enfim chama o método que atualiza os dados do usuário
         usersRepository.updateUser(userDomain);
         return findById(id_user);

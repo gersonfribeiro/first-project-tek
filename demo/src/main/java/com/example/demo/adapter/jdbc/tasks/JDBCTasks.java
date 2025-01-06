@@ -66,6 +66,17 @@ public class JDBCTasks implements TasksRepository {
     }
 
     @Override
+    public int idLastTasks() {
+        try {
+            Integer idLastTask = jdbcTemplate.queryForObject(LAST_TASK, new MapSqlParameterSource(), Integer.class);
+            return (idLastTask != null) ? idLastTask : 0;
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
     public int totalTasks() {
         try {
             Integer totalTask = jdbcTemplate.queryForObject(SIZE_ALL_TASKS, new MapSqlParameterSource(), Integer.class);

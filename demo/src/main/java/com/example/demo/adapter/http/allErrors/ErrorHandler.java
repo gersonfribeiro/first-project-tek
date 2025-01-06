@@ -6,8 +6,6 @@ import com.example.demo.application.users.exceptions.UsuarioEmailNaoEncontradoEx
 import com.example.demo.application.users.exceptions.UsuarioNaoEncontradoException;
 import com.example.demo.application.users.exceptions.UsuarioNaoEncontradoUsernameException;
 import com.example.demo.config.security.exceptions.FalhaAoGerarToken;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

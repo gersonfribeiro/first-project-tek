@@ -11,21 +11,21 @@ public class Users implements UserDetails {
 
     // Atributos do objeto
     private int id_user;
-    private String username;
+    private String usernameUser;
     private String email;
     private String passwordUser;
 
     // Construtor para a criação desse objeto com o endpoint POST, onde a id é gerada pelo banco
-    public Users(String username, String email, String password) {
-        this.username = username;
+    public Users(String usernameUser, String email, String password) {
+        this.usernameUser = usernameUser;
         this.email = email;
         this.passwordUser = password;
     }
 
     // Construtor para a edição desse objeto com o endpoint PUT, onde a id é passada
-    public Users(int id_user, String username, String email, String password) {
+    public Users(int id_user, String usernameUser, String email, String password) {
         this.id_user = id_user;
-        this.username = username;
+        this.usernameUser = usernameUser;
         this.email = email;
         this.passwordUser = password;
     }
@@ -38,12 +38,12 @@ public class Users implements UserDetails {
         this.id_user = id_user;
     }
 
-    public String getUsername() {
-        return email;
+    public String getUsernameUser() {
+        return usernameUser;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsernameUser(String usernameUser) {
+        this.usernameUser = usernameUser;
     }
 
     public String getEmail() {
@@ -66,7 +66,7 @@ public class Users implements UserDetails {
     public String toString() {
         return "Users{" +
                 "id_user='" + id_user + '\'' +
-                ", username='" + username + '\'' +
+                ", username='" + usernameUser + '\'' +
                 ", email='" + email + '\'' +
                 ", passwordUser='" + passwordUser + '\'' +
                 '}';
@@ -74,12 +74,16 @@ public class Users implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "";
+        return passwordUser;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
-
 }
